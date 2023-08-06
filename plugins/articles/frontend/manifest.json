@@ -1,0 +1,21 @@
+{
+    "name": "articles",
+    "version": "0.0.1",
+    "description": "...",
+    "manifest_version": 3,
+    "content_scripts": [
+    {
+        "matches": ["*://*/**"],
+        "js": ["js/Readability.js", "content.js", "config.js"]
+    }
+    ],
+    "web_accessible_resources": [
+    {
+    "resources": ["css/style.css"],
+    "matches": ["<all_urls>"]
+    }
+    ],
+    "host_permissions": [
+      "http://localhost:12345/**"
+    ]
+}

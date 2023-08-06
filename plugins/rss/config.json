@@ -1,0 +1,10 @@
+{
+  "serverUrl": "http://10.0.0.2:18000",
+  "saveDataUrlSuffix": "/data/doc/save/data",
+  "resources": {
+    "normal": [
+      "https://thiscute.world/index.xml",
+      "https://xargin.com/rss/"
+    ]
+  }
+}

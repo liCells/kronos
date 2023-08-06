@@ -1,0 +1,102 @@
+.article-card {
+    z-index: 9999;
+    width: 50%;
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    overflow: visible;
+}
+
+.article-card-details {
+    color: black;
+    gap: .5em;
+    display: grid;
+    place-content: center;
+}
+
+.article-text-body {
+    color: rgb(134, 134, 134);
+}
+
+.article-text-body[contenteditable] {
+  outline: none;
+}
+
+.article-text-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.article-card:hover {
+    border-color: #008bf8;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.article-card:hover .article-card-button {
+    transform: translate(-50%, 50%);
+    opacity: 1;
+}
+
+#article-popup-content {
+  position: fixed;
+  height: 40rem;
+  min-height: 300px;
+  max-width: 80%;
+  max-height: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: none;
+  overflow: auto;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 45%;
+}
+
+.article-type-input {
+  min-width: 190px;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 2px 2px 7px 0 rgb(0, 0, 0, 0.2);
+  outline: none;
+  color: dimgray;
+}
+
+.article-type-input:invalid {
+  animation: justShake 0.1s forwards;
+  color: red;
+}
+
+@keyframes justShake {
+  25% {
+    transform: translateX(5px);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(-5px);
+  }
+}
+
+.article-btn {
+    position: absolute;
+    right: 1rem;
+    background-color: #7ea87e;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}

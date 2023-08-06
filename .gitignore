@@ -1,0 +1,18 @@
+# system
+.DS_Store
+
+# IDE
+.idea
+*.iml
+
+# controller
+controller/controller
+controller/plugins
+
+# plugins
+plugins/article/article
+plugins/github_stars/github_stars
+plugins/rss/rss_pull
+
+# web
+**/node_modules

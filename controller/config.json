@@ -1,0 +1,89 @@
+{
+    "port": 18000,
+    "es": {
+        "host": "http://10.0.0.2",
+        "port": 19200,
+        "analyzer": "ik_smart"
+    },
+    "control": {
+        "renew": 30,
+        "allowed_maximum_number_of_disconnections": 3
+    },
+    "activate_extensions": [
+        "Articles",
+        "Rss_Pull"
+    ],
+    "services": [
+        {
+            "name": "Articles",
+            "description": "...",
+            "version": "0.0.1",
+            "author": "LZ",
+            "relative_path": "./plugins/article/articles",
+            "es_index_setting": {
+                "name": "articles",
+                "setting": "{\"mappings\":{\"properties\":{\"title\":{\"type\":\"text\"},\"content\":{\"type\":\"text\"},\"tag\":{\"type\":\"text\"},\"url\":{\"type\":\"text\"},\"recordTime\":{\"type\":\"date\"}}}}",
+                "mapping": {
+                    "id": "title",
+                    "title": "title",
+                    "content": "content",
+                    "source": "url",
+                    "tag": "tag"
+                }
+            },
+            "manual_execution_params": "http://localhost:18000 18001"
+        }
+    ],
+    "scripts": [
+        {
+            "name": "Github Stars",
+            "description": "...",
+            "version": "0.0.1",
+            "author": "LZ",
+            "relative_path": "./plugins/stars/github_stars",
+            "es_index_setting": {
+                "name": "github_stars",
+                "setting": "{\"mappings\":{\"properties\":{\"name\":{\"type\":\"text\"},\"full_name\":{\"type\":\"text\"},\"html_url\":{\"type\":\"text\"},\"clone_url\":{\"type\":\"text\"},\"default_branch\":{\"type\":\"text\"},\"language\":{\"type\":\"keyword\"},\"readme_url\":{\"type\":\"text\"},\"readme_content\":{\"type\":\"text\"}}}}",
+                "mapping": {
+                    "id": "full_name",
+                    "title": "name",
+                    "content": "readme_content",
+                    "source": "html_url",
+                    "tag": "language"
+                }
+            },
+            "commands": [
+                {
+                    "params": "./plugins/stars/failedFile liCells http://localhost:18000",
+                    "cron": "0 0 0 * * *"
+                }
+            ],
+            "manual_execution_params": "./plugins/stars/failedFile liCells http://localhost:18000"
+        },
+        {
+            "name": "Rss_Pull",
+            "description": "...",
+            "version": "0.0.1",
+            "author": "LZ",
+            "relative_path": "./plugins/rss_pull/rss_pull",
+            "es_index_setting": {
+                "name": "rss_pull",
+                "setting": "{\"mappings\":{\"properties\":{\"title\":{\"type\":\"text\"},\"source_url\":{\"type\":\"text\"},\"tag\":{\"type\":\"text\"},\"content\":{\"type\":\"text\"}}}}",
+                "mapping": {
+                    "id": "source_url",
+                    "title": "title",
+                    "content": "content",
+                    "source": "source_url",
+                    "tag": "tag"
+                }
+            },
+            "commands": [
+                {
+                    "params": "./plugins/rss_pull/config.json normal",
+                    "cron": "0 0 0 * * *"
+                }
+            ],
+            "manual_execution_params": "./plugins/rss_pull/config.json normal"
+        }
+    ]
+}
