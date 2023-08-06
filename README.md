@@ -124,15 +124,15 @@ cd ../plugins/${plugin_name}
 
 目前只实现了非常简陋的一个搜索页面
 
-![searcher](https://github.com/liCells/kronos/web/simple-searcher/imgs/simple-searcher.png)
+![searcher](https://github.com/liCells/kronos/blob/main/web/simple-searcher/imgs/simple-searcher.png?raw=true)
 
 当然你也可以自己实现页面，只要调用相应的接口就行。
 
 ## plugins
 
-- [x] [Articles](https://github.com/liCells/kronos/plugins/article)
-- [x] [GitHub Stars](https://github.com/liCells/kronos/plugins/stars)
-- [x] [Rss Pull](https://github.com/liCells/kronos/plugins/rss_pull)
+- [x] [Articles](https://github.com/liCells/kronos/tree/main/plugins/articles)
+- [x] [GitHub Stars](https://github.com/liCells/kronos/tree/main/plugins/github_stars)
+- [x] [Rss Pull](https://github.com/liCells/kronos/tree/main/plugins/rss)
 
 ## 待办事项
 
