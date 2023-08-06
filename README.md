@@ -12,6 +12,16 @@ Kronos是一个数据整合工具，用于整合多方数据到本地ES中，包
 
 > 服务：长期运行，可以通过编写第三方服务或脚本调用。
 
+## 目录描述
+
+- controller 主要的控制服务
+- plugins 插件
+  - articles => 浏览器文章插件
+  - github_stars => GitHub stars插件
+  - rss_pull => rss拉取插件
+- web 页面展示
+  - simple-searcher => 极其简单且简陋的搜索页面
+
 ## 部署
 
 暂时没有处理docker部署，只能通过源码部署。
