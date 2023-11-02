@@ -21,6 +21,7 @@ Kronos是一个数据整合工具，用于整合多方数据到本地ES中，包
   - rss_pull => rss拉取插件
 - web 页面展示
   - simple-searcher => 极其简单且简陋的搜索页面
+  - kronos-v1 => 新版搜索页面
 
 ## 部署
 
