@@ -36,6 +36,8 @@ func (r *DataApi) BasicSearch(c *gin.Context) {
 		From(searcher.From).
 		Size(searcher.Size).
 		Do(context.Background())
+
+	esSearcher.Explain(true)
 	if err != nil {
 		response.FailWithMessage(c, "Search failure")
 		return

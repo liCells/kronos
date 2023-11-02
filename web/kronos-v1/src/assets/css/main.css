@@ -1,0 +1,62 @@
+:root {
+    --sidebar-width: 12rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #222222;
+        color: whitesmoke;
+    }
+
+    hr {
+        background: #333333;
+    }
+
+    .sidebar {
+        background: #333333;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background: white;
+    }
+}
+
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    width: var(--sidebar-width);
+    overflow: auto;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.option {
+    text-align: center;
+    height: 2rem;
+    padding: 0.5rem 2rem 0 2rem;
+    cursor: pointer;
+}
+
+.option {
+    background-color: white;
+    color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    .option {
+        background-color: #333333;
+        color: #fff;
+    }
+}
+
+.option:hover {
+    background-color: #222222;
+    color: white;
+}

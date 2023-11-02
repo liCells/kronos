@@ -25,6 +25,26 @@ func (r *ExtensionApi) Execute(c *gin.Context) {
 	response.BadRequest(c)
 }
 
+func (r *ExtensionApi) GetExtensions(c *gin.Context) {
+	// merge global.Config.Scripts & global.Config.Services
+	merged := append(global.Config.Scripts, global.Config.Services...)
+
+	response.SuccessWithData(c, extensionsToMap(merged))
+}
+
+func extensionsToMap(extensions []global.Extension) []map[string]string {
+	var res []map[string]string
+	for _, script := range extensions {
+		res = append(res, map[string]string{
+			"name":    script.Name,
+			"desc":    script.Description,
+			"version": script.Version,
+			"author":  script.Author,
+		})
+	}
+	return res
+}
+
 func Execute(path string, params string) {
 	cmd := exec.Command(path, strings.Split(params, " ")...)
 
