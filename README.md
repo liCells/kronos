@@ -117,6 +117,17 @@ cd ../plugins/${plugin_name}
                     "tag": "language"
                 }
             },
+            // 搜索模式，目前用于指定字段的权重
+            "search_scheme": [
+                {
+                    "field": "title",
+                    "boost": 3
+                },
+                {
+                    "field": "content",
+                    "boost": 1
+                }
+            ],
             // 用于定时执行
             "commands": [
                 {
