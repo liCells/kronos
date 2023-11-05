@@ -5,7 +5,9 @@ import (
 )
 
 var (
-	Config Configuration
+	Config        Configuration
+	Indexes       []string
+	SearchSchemes map[string][]SearchScheme
 	// ESClient is the global ES client
 	ESClient *elastic.Client
 )
@@ -31,15 +33,22 @@ type es struct {
 }
 
 type Extension struct {
-	Name                  string         `json:"name"`
-	Description           string         `json:"description"`
-	Version               string         `json:"version"`
-	Author                string         `json:"author"`
-	RelativePath          string         `json:"relative_path"`
-	InterfaceType         string         `json:"interface_type"`
-	EsIndexSetting        EsIndexSetting `json:"es_index_setting"`
-	Commands              []Command      `json:"commands"`
-	ManualExecutionParams string         `json:"manual_execution_params"`
+	Name                  string          `json:"name"`
+	Description           string          `json:"description"`
+	Version               string          `json:"version"`
+	Author                string          `json:"author"`
+	RelativePath          string          `json:"relative_path"`
+	InterfaceType         string          `json:"interface_type"`
+	EsIndexSetting        *EsIndexSetting `json:"es_index_setting"`
+	SearchScheme          []*SearchScheme `json:"search_scheme"`
+	Commands              []*Command      `json:"commands"`
+	ManualExecutionParams string          `json:"manual_execution_params"`
+}
+
+type SearchScheme struct {
+	Index *string `json:"index,omitempty"`
+	Field string  `json:"field"`
+	Boost int     `json:"boost"`
 }
 
 type EsIndexSetting struct {

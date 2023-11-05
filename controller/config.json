@@ -3,7 +3,7 @@
     "es": {
         "host": "http://10.0.0.2",
         "port": 19200,
-        "analyzer": "ik_smart"
+        "analyzer": ""
     },
     "control": {
         "renew": 30,
@@ -77,6 +77,16 @@
                     "tag": "tag"
                 }
             },
+            "search_scheme": [
+                {
+                    "field": "title",
+                    "boost": 3
+                },
+                {
+                    "field": "content",
+                    "boost": 1
+                }
+            ],
             "commands": [
                 {
                     "params": "./plugins/rss_pull/config.json normal",

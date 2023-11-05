@@ -1,33 +1,33 @@
 package initialize
 
 import (
-    "github.com/gin-gonic/gin"
-    "github.com/liCells/controller/global"
-    "strconv"
-    "sync"
+	"github.com/gin-gonic/gin"
+	"github.com/liCells/controller/global"
+	"strconv"
+	"sync"
 )
 
 func Initialize() {
-    GetConfig()
+	GetConfig()
 
-    InitEs()
+	InitEsClient()
 
-    router := Routers()
+	router := Routers()
 
-    waitGroup := &sync.WaitGroup{}
+	waitGroup := &sync.WaitGroup{}
 
-    waitGroup.Add(1)
-    go initServer(router)
+	waitGroup.Add(1)
+	go initServer(router)
 
-    LoadScheduledTask()
+	LoadScheduledTask()
 
-    waitGroup.Wait()
+	waitGroup.Wait()
 }
 
 func initServer(router *gin.Engine) {
-    port := global.Config.Port
-    if port == 0 {
-        port = 8080
-    }
-    _ = router.Run(":" + strconv.Itoa(int(port)))
+	port := global.Config.Port
+	if port == 0 {
+		port = 8080
+	}
+	_ = router.Run(":" + strconv.Itoa(int(port)))
 }

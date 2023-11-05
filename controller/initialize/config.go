@@ -30,4 +30,39 @@ func GetConfig() {
 	if err != nil {
 		panic("Json parse error")
 	}
+
+	if global.Config.Scripts != nil {
+		buildIndexes(global.Config.Scripts)
+		buildSearchScheme(global.Config.Scripts)
+	}
+	if &global.Config.Services != nil {
+		buildIndexes(global.Config.Services)
+		buildSearchScheme(global.Config.Services)
+	}
+}
+
+func buildIndexes(extension []global.Extension) {
+	for _, script := range extension {
+		global.Indexes = append(global.Indexes, script.EsIndexSetting.Name)
+	}
+}
+
+func buildSearchScheme(extension []global.Extension) {
+	for _, script := range extension {
+		if script.SearchScheme == nil {
+			continue
+		}
+		var searchSchemes []global.SearchScheme
+		for _, scheme := range script.SearchScheme {
+			searchSchemes = append(searchSchemes, global.SearchScheme{
+				Index: &script.EsIndexSetting.Name,
+				Field: scheme.Field,
+				Boost: scheme.Boost,
+			})
+		}
+		if global.SearchSchemes == nil {
+			global.SearchSchemes = make(map[string][]global.SearchScheme)
+		}
+		global.SearchSchemes[script.EsIndexSetting.Name] = searchSchemes
+	}
 }

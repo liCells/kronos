@@ -6,6 +6,7 @@ import (
 	"github.com/liCells/controller/api/common/response"
 	"github.com/liCells/controller/global"
 	"github.com/olivere/elastic/v7"
+	"strconv"
 	"strings"
 )
 
@@ -18,26 +19,40 @@ func (r *DataApi) BasicSearch(c *gin.Context) {
 		return
 	}
 
-	esSearcher := global.ESClient.Search()
-	if searcher.Indexes != nil {
-		// set indexes
-		esSearcher = esSearcher.
-			Index(searcher.Indexes...)
-	}
-	if global.Config.Es.Analyzer != "" {
-		esSearcher = esSearcher.
-			Query(elastic.NewQueryStringQuery(searcher.Content).Analyzer(global.Config.Es.Analyzer))
-	} else {
-		esSearcher = esSearcher.
-			Query(elastic.NewQueryStringQuery(searcher.Content))
+	if searcher.Indexes == nil {
+		searcher.Indexes = global.Indexes
 	}
 
-	res, err := esSearcher.
+	boolQuery := elastic.NewBoolQuery()
+
+	if global.SearchSchemes == nil {
+		for _, index := range searcher.Indexes {
+			schemes, isExist := global.SearchSchemes[index]
+			if isExist {
+				for _, scheme := range schemes {
+					name := index + "." + scheme.Field + "^" + strconv.Itoa(scheme.Boost)
+					matchQuery := elastic.NewMatchQuery(name, searcher.Content)
+
+					if global.Config.Es.Analyzer != "" {
+						matchQuery.Analyzer(global.Config.Es.Analyzer)
+					}
+
+					boolQuery.Should(matchQuery)
+				}
+			}
+		}
+	} else {
+		boolQuery.Should(elastic.NewQueryStringQuery(searcher.Content))
+	}
+
+	res, err := global.ESClient.Search().
+		Index(searcher.Indexes...).
 		From(searcher.From).
 		Size(searcher.Size).
+		Query(boolQuery).
+		Highlight(elastic.NewHighlight().PreTags("<em>").PostTags("</em>")).
 		Do(context.Background())
 
-	esSearcher.Explain(true)
 	if err != nil {
 		response.FailWithMessage(c, "Search failure")
 		return
